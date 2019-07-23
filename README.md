@@ -11,6 +11,10 @@
 - FormItem 表单项
 - CheckboxGroup 复选框组
 - Checkbox 复选框
+- RadioGroup 单选框组
+- Radio 单选框
+- Display vue代码效果展示
+- Alert 提示框
 - ...
 
 ### 方法

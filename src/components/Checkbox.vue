@@ -80,7 +80,7 @@ export default {
         if (this.group) {
             this.parent.updateModel(true)
         } else {
-            this.updateModel
+            this.updateModel()
         }
     },
 

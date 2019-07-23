@@ -17,8 +17,21 @@
       <i-form-item label="测试radio" prop="radio">
         <i-radio v-model="formValidate.radio">是否勾选</i-radio>
       </i-form-item>
+      <i-form-item label="测试radio组" prop="radioGroup">
+        <i-radio-group v-model="formValidate.radioGroup">
+          <i-radio label="1">radio1</i-radio>
+          <i-radio label="2">radio2</i-radio>
+          <i-radio label="3">radio3</i-radio>
+        </i-radio-group>
+      </i-form-item>
       <button @click="handleSubmit">提交</button>
     </i-form>
+
+    <textarea v-model="originCode"></textarea>
+    <i-display :code="code"></i-display>
+    <button @click="handleDisplay">渲染</button>
+    <button @click="handleAlert1">打开提示1</button>
+    <button @click="handleAlert2">打开提示2</button>
   </div>
 </template>
 
@@ -29,6 +42,9 @@ import IInput from '@/components/Input.vue'
 import ICheckbox from '@/components/Checkbox.vue'
 import ICheckboxGroup from '@/components/CheckboxGroup.vue'
 import IRadio from '@/components/Radio.vue'
+import IRadioGroup from '@/components/RadioGroup.vue'
+import IDisplay from '@/components/Display.vue'
+import mock from './mock'
 
 export default {
   name: 'home',
@@ -38,7 +54,9 @@ export default {
     IInput,
     ICheckbox,
     ICheckboxGroup,
-    IRadio
+    IRadio,
+    IRadioGroup,
+    IDisplay
   },
   data() {
     return {
@@ -46,7 +64,8 @@ export default {
         name: '',
         mail: '',
         member: ['1'],
-        radio: false
+        radio: false,
+        radioGroup: '2',
       },
       ruleValidate: {
         name: [
@@ -66,7 +85,17 @@ export default {
             trigger: 'change'
           }
         ]
-      }
+      },
+      originCode: mock,
+      code: mock
+    }
+  },
+  watch: {
+    'formValidate.radioGroup'(val) {
+      console.log(val)
+    },
+    'formValidate.member'(val) {
+      console.log(val)
     }
   },
   methods: {
@@ -78,6 +107,19 @@ export default {
         } else {
           console.log('表单校验失败')
         }
+      })
+    },
+    handleDisplay() {
+      this.code = this.originCode
+    },
+    handleAlert1() {
+      this.$Alert.info({
+        content: '提示1'
+      })
+    },
+    handleAlert2() {
+      this.$Alert.info({
+        content: '提示2'
       })
     }
   }
