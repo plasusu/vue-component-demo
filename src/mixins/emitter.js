@@ -21,8 +21,9 @@ export default {
                     name = parent.$options.name
                 }
             }
-
-            parent.$emit.apply(parent, [eventName].concat(params))
+            if (parent) {
+                parent.$emit.apply(parent, [eventName].concat(params));
+            }
         },
         boardcast(componentName, eventName, params) {
             boardcast.call(this, componentName, eventName, params)

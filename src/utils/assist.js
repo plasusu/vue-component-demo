@@ -17,7 +17,51 @@ function findComponentsDownward(context, componentName) {
     }, []);
 }
 
+function typeOf(obj) {
+    const toString = Object.prototype.toString
+
+    const map = {
+        '[object Boolean]'  : 'boolean',
+        '[object Number]'   : 'number',
+        '[object String]'   : 'string',
+        '[object Function]' : 'function',
+        '[object Array]'    : 'array',
+        '[object Date]'     : 'date',
+        '[object RegExp]'   : 'regExp',
+        '[object Undefined]': 'undefined',
+        '[object Null]'     : 'null',
+        '[object Object]'   : 'object'
+    }
+    return map[toString.call(obj)]
+}
+
+function deepCopy(data) {
+    const t = typeOf(data)
+    let o
+
+    if (t === 'array') {
+        o = []
+    } else if (t === 'object') {
+        o = {}
+    } else {
+        return data
+    }
+
+    if (t === 'array') {
+        data.forEach(v => {
+            o.push(deepCopy(v))
+        })
+    } else if (t === 'object') {
+        for (let key in data) {
+            o[key] = deepCopy(data[key])
+        }
+    }
+
+    return o
+}
+
 export {
     findComponentUpward,
-    findComponentsDownward
+    findComponentsDownward,
+    deepCopy
 }

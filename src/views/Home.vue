@@ -7,12 +7,17 @@
       <i-form-item label="邮箱" prop="mail">
         <i-input v-model="formValidate.mail"></i-input>
       </i-form-item>
+      <i-form-item label="测试单个checkbox">
+        <i-checkbox v-model="checked">单个</i-checkbox>
+        <span>{{checked}}</span>
+      </i-form-item>
       <i-form-item label="测试checkbox" prop="member">
         <i-checkbox-group v-model="formValidate.member">
           <i-checkbox label="1">小明</i-checkbox>
           <i-checkbox label="2">小李</i-checkbox>
           <i-checkbox label="3">小赵</i-checkbox>
         </i-checkbox-group>
+        <span>{{formValidate.member}}</span>
       </i-form-item>
       <i-form-item label="测试radio" prop="radio">
         <i-radio v-model="formValidate.radio">是否勾选</i-radio>
@@ -32,6 +37,11 @@
     <button @click="handleDisplay">渲染</button>
     <button @click="handleAlert1">打开提示1</button>
     <button @click="handleAlert2">打开提示2</button>
+
+    <i-tree
+      :list="treeList"
+      :show-checkbox="true"
+    ></i-tree>
   </div>
 </template>
 
@@ -44,6 +54,7 @@ import ICheckboxGroup from '@/components/CheckboxGroup.vue'
 import IRadio from '@/components/Radio.vue'
 import IRadioGroup from '@/components/RadioGroup.vue'
 import IDisplay from '@/components/Display.vue'
+import ITree from '@/components/Tree/Tree.vue'
 import mock from './mock'
 
 export default {
@@ -56,10 +67,12 @@ export default {
     ICheckboxGroup,
     IRadio,
     IRadioGroup,
-    IDisplay
+    IDisplay,
+    ITree
   },
   data() {
     return {
+      checked: false,
       formValidate: {
         name: '',
         mail: '',
@@ -87,7 +100,38 @@ export default {
         ]
       },
       originCode: mock,
-      code: mock
+      code: mock,
+      treeList: [
+  {
+    title: 'parent 1',
+    expand: true,
+    children: [
+      {
+        title: 'parent 1-1',
+        expand: true,
+        children: [
+          {
+            title: 'leaf 1-1-1'
+          },
+          {
+            title: 'leaf 1-1-2'
+          }
+        ]
+      },
+      {
+        title: 'parent 1-2',
+        children: [
+          {
+            title: 'leaf 1-2-1'
+          },
+          {
+            title: 'leaf 1-2-1'
+          }
+        ]
+      }
+    ]
+  }
+]
     }
   },
   watch: {
